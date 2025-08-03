@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar = () => {
-  const [currentHash, setCurrentHash] = useState(window.location.hash);
-
-  useEffect(() => {
-    const onHashChange = () => setCurrentHash(window.location.hash);
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
+  const location = useLocation();
 
   return (
     <nav
@@ -18,18 +12,23 @@ export const Navbar = () => {
     >
       <div className="container">
         <div className="navbar-brand">
-          <a
-            className={`navbar-item ${currentHash === '#/' || currentHash === '' ? 'has-background-grey-lighter' : ''}`}
-            href="#/"
+          <Link
+            to="/"
+            className={`navbar-item ${
+              location.pathname === '/' ? 'has-background-grey-lighter' : ''
+            }`}
           >
             Home
-          </a>
-          <a
-            className={`navbar-item ${currentHash.startsWith('#/people') ? 'has-background-grey-lighter' : ''}`}
-            href="#/people"
+          </Link>
+
+          <Link
+            to="/people"
+            className={`navbar-item ${
+              location.pathname.startsWith('/people') ? 'has-background-grey-lighter' : ''
+            }`}
           >
             People
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

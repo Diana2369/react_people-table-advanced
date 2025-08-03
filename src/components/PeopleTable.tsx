@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Person } from '../types/Person';
 
 interface PeopleTableProps {
@@ -77,33 +78,33 @@ export const PeopleTable = ({
         {people.map(person => (
           <tr data-cy="person" key={person.id}>
             <td>
-              <a
-                href={`#/people/${person.slug}`}
+              <Link
+                to={`/people/${person.slug}`}
                 className={person.sex === 'f' ? 'has-text-danger' : ''}
               >
                 {person.name}
-              </a>
+              </Link>
             </td>
             <td>{person.sex}</td>
             <td>{person.born}</td>
             <td>{person.died || '-'}</td>
             <td>
               {person.motherName ? (
-                <a
-                  href={`#/people/${person.motherSlug}`}
+                <Link
+                  to={`/people/${person.motherSlug}`}
                   className="has-text-danger"
                 >
                   {person.motherName}
-                </a>
+                </Link>
               ) : (
                 '-'
               )}
             </td>
             <td>
               {person.fatherName ? (
-                <a href={`#/people/${person.fatherSlug}`}>
+                <Link to={`/people/${person.fatherSlug}`}>
                   {person.fatherName}
-                </a>
+                </Link>
               ) : (
                 '-'
               )}

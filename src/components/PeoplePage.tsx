@@ -28,7 +28,9 @@ export const PeoplePage = () => {
 
   // Фильтрация по query (name, motherName, fatherName)
   const filteredPeople = people.filter(person => {
-    if (!query) return true;
+    if (!query) {
+      return true;
+    }
 
     const nameMatch = person.name.toLowerCase().includes(query);
     const motherMatch = person.motherName?.toLowerCase().includes(query);
@@ -46,6 +48,7 @@ export const PeoplePage = () => {
     if (sortField === 'born' || sortField === 'died') {
       aField = aField || 0;
       bField = bField || 0;
+
       return sortOrder === 'asc' ? aField - bField : bField - aField;
     }
 
@@ -54,6 +57,7 @@ export const PeoplePage = () => {
       if (sortOrder === 'asc') {
         return aField.localeCompare(bField);
       }
+
       return bField.localeCompare(aField);
     }
 
@@ -71,6 +75,7 @@ export const PeoplePage = () => {
 
     // Обновляем URL-параметры
     const newParams = new URLSearchParams(searchParams);
+
     newParams.set('sort', field);
     newParams.set('order', order);
     setSearchParams(newParams);
@@ -83,9 +88,7 @@ export const PeoplePage = () => {
       <div className="block">
         <div className="columns is-desktop is-flex-direction-row-reverse">
           <div className="column is-7-tablet is-narrow-desktop">
-            {!isLoading && !isError && people.length > 0 && (
-              <PeopleFilters people={people} />
-            )}
+            <PeopleFilters />
           </div>
 
           <div className="column">
