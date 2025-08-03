@@ -1,4 +1,14 @@
+import { useState, useEffect } from 'react';
+
 export const Navbar = () => {
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
+
+  useEffect(() => {
+    const onHashChange = () => setCurrentHash(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
   return (
     <nav
       data-cy="nav"
@@ -8,13 +18,14 @@ export const Navbar = () => {
     >
       <div className="container">
         <div className="navbar-brand">
-          <a className="navbar-item" href="#/">
+          <a
+            className={`navbar-item ${currentHash === '#/' || currentHash === '' ? 'has-background-grey-lighter' : ''}`}
+            href="#/"
+          >
             Home
           </a>
-
           <a
-            aria-current="page"
-            className="navbar-item has-background-grey-lighter"
+            className={`navbar-item ${currentHash.startsWith('#/people') ? 'has-background-grey-lighter' : ''}`}
             href="#/people"
           >
             People
